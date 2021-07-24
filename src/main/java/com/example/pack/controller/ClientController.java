@@ -69,7 +69,7 @@ public class ClientController {
             model.addAttribute("client", client);
             return "/client/new-client";
         }else
-            throw new ClientIdNotFoundException("Id Not Found !!! ");
+            throw new ClientIdNotFoundException("Client Id Not Found !!! ");
 
     }
 
@@ -83,7 +83,7 @@ public class ClientController {
     }
 
 
-
+    // Pagination work
     @GetMapping("/page/{pageNo}")
     public String findPaginated(@PathVariable("pageNo") int pageNo,
                                 @Param("sortField") String sortField,
