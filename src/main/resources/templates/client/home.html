@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="AllFragments/base-fragment::layout(~{::section})">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+</head>
+
+
+<body>
+<!--  ==========================================================  Body Start ========================================================================================-->
+<section>
+    <div class="container text-center">
+
+        <h1>Client List</h1>
+
+        <div th:switch="${listClients}" class="container my-5">
+
+            <p>
+                <a href="/client/show-new-client-form" class="btn btn-primary">
+                    <i class="fas fa-user-plus ml-2"> Add Client </i>
+                </a>
+            </p>
+
+            <div class="text-center mb-3">
+                <form th:action="@{/client/page/1}">
+                    <input type="hidden" name="sortField" th:value="${sortField}"/>
+                    <input type="hidden" name="sortDir" th:value="${sortDir}"/>
+                    Filter:
+                    <input type="text" name="keyword" th:value="${keyword}" required/>
+                    <input type="submit" value="Search">
+                    <input type="button" value="Clear" onclick="clearFilter()"/>
+                </form>
+            </div>
+
+
+
+            <!-- ========================================= Here is the Table of Employee ============================================================================== -->
+            <div class="table-responsive">
+                <table class = "table table-hover table-bordered">
+                    <!--Table head-->
+                    <thead class="table-success">
+                    <tr>
+                        <th>
+                            <a th:href="@{'/client/page/' + ${currentPage} + '?sortField=companyName&sortDir=' + ${reverseSortDir}}">
+                                Company Name</a>
+                        </th>
+                        <th>
+                            <a th:href="@{'/client/page/' + ${currentPage} + '?sortField=contactPerson&sortDir=' + ${reverseSortDir}}">
+                                Contact Person</a>
+                        </th>
+                        <th>
+                            <a th:href="@{'/client/page/' + ${currentPage} + '?sortField=contactNumber&sortDir=' + ${reverseSortDir}}">
+                                Contact Number</a>
+                        </th>
+                        <th>
+                            <a th:href="@{'/client/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
+                                Email</a>
+                        </th>
+                        <th>Action </th>
+                    </tr>
+                    </thead>
+
+                    <!--Table Body-->
+                    <tbody>
+                    <tr th:each="client : ${listClients}">
+
+                        <td th:text="${client.companyName}"></td>
+                        <td th:text="${client.contactPerson}"></td>
+                        <td th:text="${client.contactNumber}"></td>
+                        <td th:text="${client.email}"></td>
+                        <td>
+                            <a th:href="@{/client/show-form-for-update/(id=${client.id})}"
+                               class="btn btn-info">
+                                <i class="fas fa-user-edit ml-2">&nbsp; Update</i>
+                            </a>
+
+                            <a th:href="@{/client/delete-client/(id=${client.id})} "
+                               onclick="if (! (confirm('Are you sure you want to delete this Client?'))) return false"
+                               class="btn btn-warning">
+                                <i class="fas fa-user-times ml-2">&nbsp;&nbsp; Delete</i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ================================================== Here is the division of pagination================================================================ -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <!-- Previous page logic -->
+                    <li  th:if="${currentPage != 1}" class="page-item">
+                        <a th:href="@{'/client/page/' + ${currentPage - 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="page-link" href="#">Previous</a>
+                    </li>
+
+                    <!-- All page show-->
+                    <li th:classappend="${currentPage==i ? 'active' : ''}" th:each="i: ${#numbers.sequence(1, totalPages)}" class="page-item">
+                        <a th:href="@{'/client/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="page-link" href="#">
+                            <span th:text="${i}"></span>
+                        </a>
+                    </li>
+
+                    <!-- Next page Logic-->
+                    <li th:if="${currentPage != totalPages}" class="page-item">
+                        <a th:href="@{'/client/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="page-link" href="#">Next</a>
+                    </li>
+
+                    <!--	Last Page Logic-->
+                    <li th:if="${currentPage < totalPages}" class="page-item">
+                        <a th:href="@{'/client/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="page-link" href="#">Last</a>
+                    </li>
+                </ul>
+            </nav>
+
+
+
+        </div>
+    </div>
+
+
+
+    <!-- ============================================== All script logic is append here ====================================================================================================-->
+    <script type="text/javascript">
+        function clearFilter(){
+            window.location = '/client/home';
+        }
+    </script>
+
+
+</section>
+</body>
+</html>

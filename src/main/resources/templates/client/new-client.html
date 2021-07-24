@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="AllFragments/base-fragment::layout(~{::section})">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+</head>
+
+<body>
+
+<!--  ==========================================================  Body Start ========================================================================================-->
+<section>
+    <div class="container ">
+        <div class="row">
+            <div class="col-md-8 offset-md-2 ">
+                <div class="my-card mt-4 mb-4">
+                    <h1>Client  Create</h1>
+
+                    <form class="border bg-light p-5" action="#" th:action="@{/client/save-client}" th:object="${client}" method="POST">
+
+                        <input type="hidden" th:field="*{id}" />
+
+                        <!-- Field of Company Name -->
+                        <div class="mb-3">
+                            <label for="companyName" class="form-label">Company Name</label>
+                            <input th:value="${client.companyName}"
+                                   name="companyName"
+                                   type="text"
+                                   class="form-control"
+                                   placeholder="Enter Here"
+                                   id="companyName"
+                                   required
+                                   th:classappend="${#fields.hasErrors('companyName') ? 'is-invalid' : ''}" >
+                            <div class="invalid-feedback"
+                                 th:each="e : ${#fields.errors('companyName')}"
+                                 th:text="${e}">
+                            </div>
+                        </div>
+
+                        <!-- Field of Contact Person -->
+                        <div class="mb-3">
+                            <label for="contactPerson" class="form-label">Contact Person</label>
+                            <input th:value="${client.contactPerson}"
+                                   name="contactPerson"
+                                   type="text"
+                                   class="form-control"
+                                   placeholder="Enter Here"
+                                   id="contactPerson"
+                                   required
+                                   th:classappend="${#fields.hasErrors('contactPerson') ? 'is-invalid' : ''}" >
+                            <div class="invalid-feedback"
+                                 th:each="e : ${#fields.errors('contactPerson')}"
+                                 th:text="${e}">
+                            </div>
+                        </div>
+
+
+                        <!-- Field of Contact Number -->
+                        <div class="mb-3">
+                            <label for="contactNumber" class="form-label">Contact Number</label>
+                            <input th:value="${client.contactNumber}"
+                                   name="contactNumber"
+                                   type="text"
+                                   class="form-control"
+                                   placeholder="Enter Here"
+                                   id="contactNumber"
+                                   required
+                                   th:classappend="${#fields.hasErrors('contactNumber') ? 'is-invalid' : ''}" >
+                            <div class="invalid-feedback"
+                                 th:each="e : ${#fields.errors('contactNumber')}"
+                                 th:text="${e}">
+                            </div>
+                        </div>
+
+
+                        <!-- Field of email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input th:value="${client.email}"
+                                   name="email"
+                                   type="email"
+                                   class="form-control"
+                                   placeholder="Enter Here"
+                                   id="email"
+                                   required
+                                   th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}" >
+                            <div class="invalid-feedback"
+                                 th:each="e : ${#fields.errors('email')}"
+                                 th:text="${e}">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-info"> Save Client</button>
+
+                    </form>
+
+                    <a th:href = "@{/}"> Back to Client List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</body>
+</html>

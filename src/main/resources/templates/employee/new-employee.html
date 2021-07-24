@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="AllFragments/base-fragment::layout(~{::section})">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Form</title>
+</head>
+
+<body>
+
+<!--  ==========================================================  Body Start ========================================================================================-->
+<section>
+	<div class="container ">
+		<div class="row">
+			<div class="col-md-8 offset-md-2 ">
+				<div class="my-card mt-4 mb-4">
+					<h1>Employee  Create</h1>
+
+					<form class="border bg-light p-5" action="#" th:action="@{/employee/save-employee}" th:object="${employee}" method="POST" enctype="multipart/form-data">
+
+						<input type="hidden" th:field="*{id}" />
+
+						<!-- Field of firstName -->
+						<div class="mb-3">
+							<label for="firstName" class="form-label">First Name</label>
+							<input th:value="${employee.firstName}"
+								   name="firstName"
+								   type="text"
+								   class="form-control"
+								   placeholder="Enter Here"
+								   id="firstName"
+								   required
+								   th:classappend="${#fields.hasErrors('firstName') ? 'is-invalid' : ''}" >
+							<div class="invalid-feedback"
+								 th:each="e : ${#fields.errors('firstName')}"
+								 th:text="${e}">
+							</div>
+						</div>
+
+						<!-- Field of lastName -->
+						<div class="mb-3">
+							<label for="lastName" class="form-label">Last Name</label>
+							<input th:value="${employee.lastName}"
+								   name="lastName"
+								   type="text"
+								   class="form-control"
+								   placeholder="Enter Here"
+								   id="lastName" >
+						</div>
+
+						<!-- Field of email -->
+						<div class="mb-3">
+							<label for="email" class="form-label">Email</label>
+							<input th:value="${employee.email}"
+								   name="email"
+								   type="email"
+								   class="form-control"
+								   placeholder="Enter Here"
+								   id="email"
+								   required
+								   th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}" >
+							<div class="invalid-feedback"
+								 th:each="e : ${#fields.errors('email')}"
+								 th:text="${e}">
+							</div>
+						</div>
+
+						<!-- Field of Phone -->
+						<div class="mb-3">
+							<label for="phone" class="form-label">Phone</label>
+							<input th:value="${employee.phone}"
+								   name="phone"
+								   type="text"
+								   class="form-control"
+								   placeholder="Enter Here"
+								   id="phone"
+								   required
+								   th:classappend="${#fields.hasErrors('phone') ? 'is-invalid' : ''}" >
+							<div class="invalid-feedback"
+								 th:each="e : ${#fields.errors('phone')}"
+								 th:text="${e}">
+							</div>
+						</div>
+
+
+						<!-- Field of User Name -->
+						<div class="mb-3">
+							<label for="userName" class="form-label">User Name</label>
+							<input th:value="${employee.userName}"
+								   name="userName"
+								   type="text"
+								   class="form-control"
+								   placeholder="Enter Here"
+								   id="userName"
+								   required
+								   th:classappend="${#fields.hasErrors('userName') ? 'is-invalid' : ''}" >
+							<div class="invalid-feedback"
+								 th:each="e : ${#fields.errors('userName')}"
+								 th:text="${e}">
+							</div>
+						</div>
+
+
+						<!-- Field of Password -->
+						<div class="mb-3">
+							<label for="password" class="form-label">Password</label>
+							<input th:value="${employee.password}"
+								   name="password"
+								   type="password"
+								   class="form-control"
+								   placeholder="Enter Here"
+								   id="password"
+								   required
+								   th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}" >
+							<div class="invalid-feedback"
+								 th:each="e : ${#fields.errors('password')}"
+								 th:text="${e}">
+							</div>
+						</div>
+
+
+						<!-- Field of Address -->
+						<div class="mb-3">
+							<label for="address" class="form-label">Address</label>
+							<input th:value="${employee.address}"
+								   name="address"
+								   type="text"
+								   class="form-control"
+								   placeholder="Enter Here"
+								   id="address"
+								   required
+								   th:classappend="${#fields.hasErrors('address') ? 'is-invalid' : ''}" >
+							<div class="invalid-feedback"
+								 th:each="e : ${#fields.errors('address')}"
+								 th:text="${e}">
+							</div>
+						</div>
+
+
+						<!-- Field of Designation -->
+						<div class="<mb-3">
+							<label  class="col-form-label">Designation</label>
+							<select th:field="*{designation}">
+								<option th:each=" designation : ${designationType}"
+										th:text="${designation.name}"
+										th:value="${designation}" >
+								</option>
+							</select>
+						</div>
+
+						<!-- Field of Status -->
+						<div class="<mb-3">
+							<label  class="col-form-label">Status</label>
+							<select th:field="*{status}" >
+								<option th:value="'Active'" th:text="Active"></option>
+								<option th:value="'Deactive'" th:text="Deactive"></option>
+							</select>
+						</div>
+
+
+						<!-- Field of Photo Upload -->
+						<div class="<mb-3">
+							<label for="file" class="col-form-label">Photo .jpg*</label><br>
+							<input th:value="${employee.photo}"
+								   name="file"
+								   type="file"
+								   class="mb-3"
+								   id="file"
+								   required/>
+						</div>
+
+						<button type="submit" class="btn btn-info"> Save Employee</button>
+
+					</form>
+
+					<a th:href = "@{/employee/home}"> Back to Employee List</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+</body>
+</html>
