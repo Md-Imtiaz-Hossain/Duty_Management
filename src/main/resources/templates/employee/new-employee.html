@@ -157,10 +157,17 @@
 							</select>
 						</div>
 
+						<!-- Field of Show Image -->
+						<div class="container text-center">
+							<img class="my_profile rounded-circle"
+								 src="" th:src="@{'/image/' + ${employee.photo}}"
+								 alt="profile Photo" height="150px" width="150px" >
+
+						</div>
 
 						<!-- Field of Photo Upload -->
 						<div class="<mb-3">
-							<label for="file" class="col-form-label">Photo .jpg*</label><br>
+							<label for="file" class="col-form-label">Enter New  Photo .jpg*</label><br>
 							<input th:value="${employee.photo}"
 								   name="file"
 								   type="file"

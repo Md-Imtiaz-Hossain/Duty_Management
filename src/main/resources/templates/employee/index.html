@@ -70,7 +70,7 @@
 					  <tbody>
 					  <tr th:each="employee : ${listEmployees}">
 						  <td>
-							  <img class="my_profile"
+							  <img class="my_profile rounded-circle"
 								   src="" th:src="@{'/image/' + ${employee.photo}}"
 								   alt="profile Photo" height="110px" width="110px" >
 						  </td>
@@ -100,38 +100,36 @@
 			  </div>
 
 			  <!-- ================================================== Here is the division of pagination================================================================ -->
-<!--			  <nav aria-label="Page navigation example">-->
-<!--				  <ul class="pagination">-->
-<!--						&lt;!&ndash; Previous page logic &ndash;&gt;-->
-<!--					  <li  th:if="${currentPage != 1}" class="page-item">-->
-<!--						  <a th:href="@{'/employee/page/' + ${currentPage - 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="page-link" href="#">Previous</a>-->
-<!--					  </li>-->
+			  <nav aria-label="Page navigation example">
+				  <ul class="pagination">
+						<!-- Previous page logic -->
+					  <li  th:if="${currentPage != 1}" class="page-item">
+						  <a th:href="@{'/employee/page/' + ${currentPage - 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="page-link" href="#">Previous</a>
+					  </li>
 
-<!--						&lt;!&ndash; All page show&ndash;&gt;-->
-<!--					  <li th:classappend="${currentPage==i ? 'active' : ''}" th:each="i: ${#numbers.sequence(1, totalPages)}" class="page-item">-->
-<!--						  <a th:href="@{'/employee/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="page-link" href="#">-->
-<!--						  <span th:text="${i}"></span>-->
-<!--						  </a>-->
-<!--					  </li>-->
+						<!-- All page show-->
+					  <li th:classappend="${currentPage==i ? 'active' : ''}" th:each="i: ${#numbers.sequence(1, totalPages)}" class="page-item">
+						  <a th:href="@{'/employee/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="page-link" href="#">
+						  <span th:text="${i}"></span>
+						  </a>
+					  </li>
 
-<!--						&lt;!&ndash; Next page Logic&ndash;&gt;-->
-<!--					  <li th:if="${currentPage != totalPages}" class="page-item">-->
-<!--						  <a th:href="@{'/employee/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="page-link" href="#">Next</a>-->
-<!--					  </li>-->
+						<!-- Next page Logic-->
+					  <li th:if="${currentPage != totalPages}" class="page-item">
+						  <a th:href="@{'/employee/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="page-link" href="#">Next</a>
+					  </li>
 
-<!--					  &lt;!&ndash;	Last Page Logic&ndash;&gt;-->
-<!--					  <li th:if="${currentPage < totalPages}" class="page-item">-->
-<!--						  <a th:href="@{'/employee/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="page-link" href="#">Last</a>-->
-<!--					  </li>-->
-<!--				  </ul>-->
-<!--			  </nav>-->
+					  <!--	Last Page Logic-->
+					  <li th:if="${currentPage < totalPages}" class="page-item">
+						  <a th:href="@{'/employee/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="page-link" href="#">Last</a>
+					  </li>
+				  </ul>
+			  </nav>
 
 
 
 		  </div>
 	</div>
-
-
 
 	<!-- ============================================== All script logic is append here ====================================================================================================-->
 	<script type="text/javascript">
@@ -140,7 +138,8 @@
 	}
 	</script>
 
-
 </section>
+
+
 </body>
 </html>
