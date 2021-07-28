@@ -3,11 +3,10 @@ package com.example.pack.controller;
 
 import com.example.pack.enums.Designation;
 import com.example.pack.exception.EmployeeIdNotFoundException;
-import com.example.pack.exception.FileNotFoundException;
-import com.example.pack.helper.FileUploadHelper;
 import com.example.pack.model.Employee;
 import com.example.pack.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,9 +32,6 @@ public class EmployeeController {
 
 	@Autowired
 	private EmployeeService employeeService;
-
-	@Autowired
-	FileUploadHelper fileUploadHelper;
 
 
 	// display list of employees
@@ -59,20 +60,25 @@ public class EmployeeController {
 							   @RequestParam("file") MultipartFile file,
 							   Model model) throws IOException {
 
-			if (errors.hasErrors()){
+		if (errors.hasErrors()) {
 			model.addAttribute("employee", employee);
 			return "/employee/new-employee";
-		    }else{
-				boolean isUploaded= fileUploadHelper.uploadFile(file);
-				if (isUploaded){
-					employee.setPhoto(file.getOriginalFilename());
-					employeeService.saveEmployee(employee);
-					return "redirect:/employee/home";
-				}else{
-					throw new FileNotFoundException("File not Found !!!");
-				}
+		} else {
+			if(file.isEmpty()){
+				System.out.println("Profile Image is Empty ! ");
+				employeeService.saveEmployee(employee);
+			}else {
+				employee.setPhoto(file.getOriginalFilename());
+				File saveFile = new ClassPathResource("/static/image").getFile();
+				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
+				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+				System.out.println("Profile Image is Uploaded.");
+				employeeService.saveEmployee(employee);
 			}
+		}
+		return "redirect:/employee/home";
 	}
+
 
 
 
