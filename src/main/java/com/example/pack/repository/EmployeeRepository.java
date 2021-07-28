@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+public interface  EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Query("select e from Employee e where "
             + "CONCAT(e.firstName, ' ', e.lastName, ' ', e.email, ' ', e.phone, ' ', e.address)"

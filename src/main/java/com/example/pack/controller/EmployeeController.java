@@ -36,7 +36,8 @@ public class EmployeeController {
 	// display list of employees
 	@GetMapping("/home")
 	public String employeeList(Model model) {
-		return findPaginated(1, "firstName", "asc",null, model);
+		String keyword = null;
+		return findPaginated(1, "firstName", "asc",keyword, model);
 	}
 
 
@@ -75,7 +76,7 @@ public class EmployeeController {
 
 
 
-	// display the employee Update form
+	// Display the employee Update form
 	@GetMapping("/show-form-for-update")
 	public String showFormForUpdate(@RequestParam("id") Long id, Model model) {
 
@@ -93,8 +94,6 @@ public class EmployeeController {
 	}
 
 
-
-
 	// Delete the employee and redirect to the current page
 	@GetMapping("/delete-employee")
 	public String deleteEmployee(@RequestParam("id") Long id) {
@@ -107,10 +106,10 @@ public class EmployeeController {
 	public String findPaginated(@PathVariable("pageNo") int pageNo,
 								@Param("sortField") String sortField,
 								@Param("sortDir") String sortDir,
-								@Param("keyword") String keyword,
+								@Param("keyword") String keyword ,
 								Model model) {
 
-		int pageSize = 10;
+		int pageSize = 2;
 		
 		Page<Employee> page = employeeService.findPaginated(pageNo, pageSize, sortField, sortDir, keyword);
 		List<Employee> listEmployees = page.getContent();

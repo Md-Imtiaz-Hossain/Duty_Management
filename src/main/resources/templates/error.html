@@ -21,13 +21,27 @@
 
 <body th:bgcolor="gray">
 
-    <div class="card text-center align-center">
-        <div class="card-body">
-            <h5 class="card-title">Error !!!</h5>
-            <div th:text="${message}"></div>
-            <a th:href="@{/}" class="btn btn-primary">Go Home</a>
+<div class="container mt-5 p-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2 ">
+
+            <div class="alert alert-dark" role="alert">
+                <div style="font-size: 4.5rem;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h1 class="alert-heading">This site can’t be reached</h1>
+                <hr>
+                <p>Check if there is a typo in your Link.</p>
+                <p>If spelling is correct, try running Windows Network Diagnostics.</p>
+                <div th:text="${message}"></div>
+                <hr>
+                <a th:href="@{/employee/home}" class="btn btn-primary">Employee Home</a>
+                <a th:href="@{/client/home}" class="btn btn-primary">Client Home</a>
+            </div>
+
         </div>
     </div>
+</div>
 
 
 </body>
