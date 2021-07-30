@@ -86,12 +86,12 @@ public class ClientController {
     // Pagination work
     @GetMapping("/page/{pageNo}")
     public String findPaginated(@PathVariable("pageNo") int pageNo,
-                                @Param("sortField") String sortField,
-                                @Param("sortDir") String sortDir,
-                                @Param("keyword") String keyword,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir,
+                                @RequestParam(value = "keyword", required = false) String keyword,
                                 Model model) {
 
-        int pageSize = 10;
+        int pageSize = 2;
 
         Page<Client> page = clientService.findPaginated(pageNo, pageSize, sortField, sortDir, keyword);
         List<Client> listClients = page.getContent();
