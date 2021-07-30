@@ -23,8 +23,9 @@
             </p>
 
             <div class="text-center mb-3">
-                <form th:action="@{/client/page/1}">
+                <form th:action="@{/client/page}">
                     <input type="hidden" name="sortField" th:value="${sortField}"/>
+                    <input type="hidden" name="pageNo" th:value="1"/>
                     <input type="hidden" name="sortDir" th:value="${sortDir}"/>
                     Filter:
                     <input type="text" name="keyword" th:value="${keyword}" required/>
@@ -34,30 +35,30 @@
             </div>
 
 
-
             <!-- ========================================= Here is the Table of Employee ============================================================================== -->
             <div class="table-responsive">
-                <table class = "table table-hover table-bordered">
+                <table class="table table-hover table-bordered">
                     <!--Table head-->
                     <thead class="table-success">
                     <tr>
                         <th>
-                            <a th:href="@{'/client/page/' + ${currentPage} + '?sortField=companyName&sortDir=' + ${reverseSortDir}}">
+                            <a th:href="@{'/client/page?pageNo=' + ${currentPage} + '&sortField=companyName&sortDir=' + ${reverseSortDir}}">
                                 Company Name</a>
                         </th>
                         <th>
-                            <a th:href="@{'/client/page/' + ${currentPage} + '?sortField=contactPerson&sortDir=' + ${reverseSortDir}}">
+                            <a th:href="@{'/client/page?pageNo=' + ${currentPage} + '&sortField=contactPerson&sortDir=' + ${reverseSortDir}}">
                                 Contact Person</a>
                         </th>
                         <th>
-                            <a th:href="@{'/client/page/' + ${currentPage} + '?sortField=contactNumber&sortDir=' + ${reverseSortDir}}">
+                            <a th:href="@{'/client/page?pageNo=' + ${currentPage} + '&sortField=contactNumber&sortDir=' + ${reverseSortDir}}">
                                 Contact Number</a>
                         </th>
                         <th>
-                            <a th:href="@{'/client/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
+                            <a th:href="@{'/client/page?pageNo=' + ${currentPage} + '&sortField=email&sortDir=' + ${reverseSortDir}}">
                                 Email</a>
                         </th>
-                        <th>Action </th>
+
+                        <th>Action</th>
                     </tr>
                     </thead>
 
@@ -88,41 +89,51 @@
 
             <!-- ================================================== Here is the division of pagination================================================================ -->
             <nav aria-label="Page navigation example">
+
+
+
                 <ul class="pagination">
+
+                    <div class="col-sm-2">
+                        Total Rows: [[${totalItems}]]
+                    </div>
                     <!-- Previous page logic -->
-                    <li  th:if="${currentPage != 1}" class="page-item">
-                        <a th:href="@{'/client/page/' + ${currentPage - 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="page-link" href="#">Previous</a>
+                    <li th:if="${currentPage != 1}" class="page-item">
+                        <a th:href="@{'/client/page?pageNo=' + ${currentPage - 1}+ '&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                           class="page-link" href="#">Previous</a>
                     </li>
 
                     <!-- All page show-->
-                    <li th:classappend="${currentPage==i ? 'active' : ''}" th:each="i: ${#numbers.sequence(1, totalPages)}" class="page-item">
-                        <a th:href="@{'/client/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="page-link" href="#">
+                    <li th:classappend="${currentPage==i ? 'active' : ''}"
+                        th:each="i: ${#numbers.sequence(1, totalPages)}" class="page-item">
+                        <a th:href="@{'/client/page?pageNo=' + ${i}+ '&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                           class="page-link" href="#">
                             <span th:text="${i}"></span>
                         </a>
                     </li>
 
                     <!-- Next page Logic-->
                     <li th:if="${currentPage != totalPages}" class="page-item">
-                        <a th:href="@{'/client/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="page-link" href="#">Next</a>
+                        <a th:href="@{'/client/page?pageNo=' + ${currentPage + 1}+ '&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                           class="page-link" href="#">Next</a>
                     </li>
 
                     <!--	Last Page Logic-->
                     <li th:if="${currentPage < totalPages}" class="page-item">
-                        <a th:href="@{'/client/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="page-link" href="#">Last</a>
+                        <a th:href="@{'/client/page?pageNo=' + ${totalPages}+ '&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                           class="page-link" href="#">Last</a>
                     </li>
                 </ul>
             </nav>
-
 
 
         </div>
     </div>
 
 
-
     <!-- ============================================== All script logic is append here ====================================================================================================-->
     <script type="text/javascript">
-        function clearFilter(){
+        function clearFilter() {
             window.location = '/client/home';
         }
     </script>

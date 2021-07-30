@@ -108,8 +108,9 @@ public class EmployeeController {
 	}
 
 
-	@GetMapping("/page/{pageNo}")
-	public String findPaginated(@PathVariable("pageNo") int pageNo,
+	// Pagination work
+	@GetMapping("/page")
+	public String findPaginated(@RequestParam("pageNo") int pageNo,
 								@RequestParam("sortField") String sortField,
 								@RequestParam("sortDir") String sortDir,
 								@RequestParam(value = "keyword", required = false) String keyword,

@@ -84,8 +84,8 @@ public class ClientController {
 
 
     // Pagination work
-    @GetMapping("/page/{pageNo}")
-    public String findPaginated(@PathVariable("pageNo") int pageNo,
+    @GetMapping("/page")
+    public String findPaginated(@RequestParam("pageNo") int pageNo,
                                 @RequestParam("sortField") String sortField,
                                 @RequestParam("sortDir") String sortDir,
                                 @RequestParam(value = "keyword", required = false) String keyword,
@@ -113,3 +113,5 @@ public class ClientController {
 
 
 }
+// https://github.com/Md-Imtiaz-Hossain/Employee_CRUD_Full_Project/blob/master/src/main/java/com/example/pack/controller/ClientController.java#L88
+
