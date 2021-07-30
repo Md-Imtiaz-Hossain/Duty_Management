@@ -14,11 +14,12 @@
         <div class="row">
             <div class="col-md-8 offset-md-2 ">
                 <div class="my-card mt-4 mb-4">
-                    <h1>Client  Create</h1>
+                    <h1>Client Create</h1>
 
-                    <form class="border bg-light p-5" action="#" th:action="@{/client/save-client}" th:object="${client}" method="POST">
+                    <form class="border bg-light p-5" action="#" th:action="@{/client/save-client}"
+                          th:object="${client}" method="POST">
 
-                        <input type="hidden" th:field="*{id}" />
+                        <input type="hidden" th:field="*{id}"/>
 
                         <!-- Field of Company Name -->
                         <div class="mb-3">
@@ -30,7 +31,7 @@
                                    placeholder="Enter Here"
                                    id="companyName"
                                    required
-                                   th:classappend="${#fields.hasErrors('companyName') ? 'is-invalid' : ''}" >
+                                   th:classappend="${#fields.hasErrors('companyName') ? 'is-invalid' : ''}">
                             <div class="invalid-feedback"
                                  th:each="e : ${#fields.errors('companyName')}"
                                  th:text="${e}">
@@ -47,7 +48,7 @@
                                    placeholder="Enter Here"
                                    id="contactPerson"
                                    required
-                                   th:classappend="${#fields.hasErrors('contactPerson') ? 'is-invalid' : ''}" >
+                                   th:classappend="${#fields.hasErrors('contactPerson') ? 'is-invalid' : ''}">
                             <div class="invalid-feedback"
                                  th:each="e : ${#fields.errors('contactPerson')}"
                                  th:text="${e}">
@@ -65,7 +66,7 @@
                                    placeholder="Enter Here"
                                    id="contactNumber"
                                    required
-                                   th:classappend="${#fields.hasErrors('contactNumber') ? 'is-invalid' : ''}" >
+                                   th:classappend="${#fields.hasErrors('contactNumber') ? 'is-invalid' : ''}">
                             <div class="invalid-feedback"
                                  th:each="e : ${#fields.errors('contactNumber')}"
                                  th:text="${e}">
@@ -83,7 +84,7 @@
                                    placeholder="Enter Here"
                                    id="email"
                                    required
-                                   th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}" >
+                                   th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}">
                             <div class="invalid-feedback"
                                  th:each="e : ${#fields.errors('email')}"
                                  th:text="${e}">
@@ -94,7 +95,7 @@
 
                     </form>
 
-                    <a th:href = "@{/}"> Back to Client List</a>
+                    <a th:href="@{/}"> Back to Client List</a>
                 </div>
             </div>
         </div>

@@ -4,8 +4,6 @@ import com.example.pack.exception.ClientIdNotFoundException;
 import com.example.pack.model.Client;
 import com.example.pack.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -26,7 +24,10 @@ public class ClientController {
     // display list of Client
     @GetMapping("/home")
     public String home(Model model) {
-        return findPaginated(1, "companyName", "asc",null, model);
+        List<Client> listClients = clientService.getAllClient();
+        model.addAttribute("title", "Home - Client Management");
+        model.addAttribute("listClients", listClients);
+        return "/client/home";
     }
 
 
@@ -43,18 +44,17 @@ public class ClientController {
     // Process the Client create form
     @PostMapping("/save-client")
     public String saveClient(@Valid @ModelAttribute("client") Client client,
-                               Errors errors,
-                               Model model){
+                             Errors errors,
+                             Model model) {
 
-        if (errors.hasErrors()){
+        if (errors.hasErrors()) {
             model.addAttribute("client", client);
             return "/client/new-client";
-        }else{
+        } else {
             clientService.saveClient(client);
             return "redirect:/client/home";
         }
     }
-
 
 
     // display the client Update form
@@ -68,11 +68,10 @@ public class ClientController {
             model.addAttribute("title", "Update - Client Update Form");
             model.addAttribute("client", client);
             return "/client/new-client";
-        }else
-            throw new ClientIdNotFoundException("Client Id Not Found !!! ");
+        } else
+            throw new ClientIdNotFoundException("Id Not Found !!! ");
 
     }
-
 
 
     // Delete the client and redirect to the current page
@@ -83,35 +82,4 @@ public class ClientController {
     }
 
 
-    // Pagination work
-    @GetMapping("/page")
-    public String findPaginated(@RequestParam("pageNo") int pageNo,
-                                @RequestParam("sortField") String sortField,
-                                @RequestParam("sortDir") String sortDir,
-                                @RequestParam(value = "keyword", required = false) String keyword,
-                                Model model) {
-
-        int pageSize = 2;
-
-        Page<Client> page = clientService.findPaginated(pageNo, pageSize, sortField, sortDir, keyword);
-        List<Client> listClients = page.getContent();
-
-        model.addAttribute("title", "Home - Client Management");
-
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-
-        model.addAttribute("listClients", listClients);
-        return "/client/home";
-    }
-
-
 }
-// https://github.com/Md-Imtiaz-Hossain/Employee_CRUD_Full_Project/blob/master/src/main/java/com/example/pack/controller/ClientController.java#L88
-
