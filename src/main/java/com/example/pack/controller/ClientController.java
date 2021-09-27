@@ -25,7 +25,7 @@ public class ClientController {
     @GetMapping("/home")
     public String home(Model model) {
         List<Client> listClients = clientService.getAllClient();
-        model.addAttribute("title", "Home - Client Management");
+        model.addAttribute("title", "Client - Client Management");
         model.addAttribute("listClients", listClients);
         return "/client/home";
     }
@@ -35,7 +35,7 @@ public class ClientController {
     @GetMapping("/show-new-client-form")
     public String showNewClientForm(Model model) {
         Client client = new Client();
-        model.addAttribute("title", "Create - Client Create Form");
+        model.addAttribute("title", "Client - Client Create Form");
         model.addAttribute("client", client);
         return "/client/new-client";
     }
@@ -65,7 +65,7 @@ public class ClientController {
         Client client = null;
         if (optional.isPresent()) {
             client = optional.get();
-            model.addAttribute("title", "Update - Client Update Form");
+            model.addAttribute("title", "Client - Client Update Form");
             model.addAttribute("client", client);
             return "/client/new-client";
         } else

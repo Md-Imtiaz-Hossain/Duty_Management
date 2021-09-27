@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome stylesheet-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+
+    <!-- bootstrap data table-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title th:text="${title}"></title>
+
+</head>
+</body>
+<!-- =============================== Navbar start ================================================-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Employee Manager</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+
+            <ul class="navbar-nav text-uppercase">
+
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#" th:href="@{/}">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Login</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Signup</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+    <form class="form p-3 border" method="POST" action="#"
+          th:action="@{/duty/save-duty}" th:object="${duty}">
+
+        <div class="row">
+
+            <div class="col-6">
+
+                <h2>New Duty</h2>
+                <hr>
+
+                <div class="row m-2">
+                    <div class="col-md-3">
+                        <label>Select Client</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <select class="form-select " id="inputGroupSelect02"
+                                    name="client" th:field="*{client}">
+                                <option selected
+                                        th:each="client : ${clientList}"
+                                        th:value="${client.id}"
+                                        th:text="${client.contactPerson}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Field of Duty Date -->
+                <div class="row m-2">
+                    <div class="col-md-3">
+                        <label>Duty Date</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <input type="text"
+                                   class="form-control w-75"
+                                   placeholder="YYYY-MM-DD"
+                                   th:value="${duty.dutyDate}"
+                                   name="dutyDate" required>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row m-2">
+                    <div class="col-md-3">
+                        <label>Start At</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="HH:MM:SS"
+                                   th:value="${duty.startAt}" name="startAt" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <select class="form-select" name="startAtFormat">
+                                <option selected th:value="'AM'" th:text="AM"></option>
+                                <option th:value="'PM'" th:text="PM"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+<!--                <div class="row m-2">-->
+<!--                    <div class="col-md-3">-->
+<!--                        <label>Select Client</label>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-6">-->
+<!--                        <div class="form-group ">-->
+<!--                            <select class="form-select " id="inputGroupSelect02" name="client" th:field="*{client}">-->
+<!--                                <option selected-->
+<!--                                        th:each="client : ${clientList}"-->
+<!--                                        th:value="${client.id}"-->
+<!--                                        th:text="${client.contactPerson}">-->
+<!--                                </option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+
+                <div class="row m-2">
+                    <div class="col-md-3">
+                        <label>End At</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="HH:MM:SS"
+                                   th:value="${duty.endAt}" name="endAt" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <select class="form-select" name="endAtFormat">
+                                <option selected th:value="'AM'" th:text="AM"></option>
+                                <option th:value="'PM'" th:text="PM"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-6">
+                <h2>Select Employee(s)</h2>
+                <hr>
+                <div class="scrollable" style="height: 200px; overflow: scroll">
+                    <ul class="list-group">
+                        <li class="list-group-item" th:each=" employee : ${employeeList}">
+                            <div class="ui checkbox scrollBody">
+                                <input th:field="*{employees}" type="checkbox" th:value="${employee.id}">
+
+                                <img class="my_profile rounded-circle"
+                                     src="" th:src="@{'/image/' + ${employee.photo}}"
+                                     alt="profile Photo" height="50px" width="50px">
+
+                                <label th:text="${employee.firstName} +' '+ ${employee.lastName}"></label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+
+        <h2>Duty Location</h2>
+        <div class="row">
+
+            <div class="col-6">
+
+                <div class="m-3">
+                    <label class="form-label">Address</label>
+                    <input type="text" class="form-control mb-2" th:value="${duty.location}" name="location" placeholder="Line 1">
+                    <input type="text" class="form-control" th:value="${duty.location_optional}" name="location_optional" placeholder="Line 2">
+
+                </div>
+
+
+                <div class="m-3">
+                    <label for="landmark" class="form-label">Landmark</label>
+                    <input type="text" class="form-control" id="landmark">
+                </div>
+
+            </div>
+
+            <div class="col-6">
+
+                <div class="row mt-5">
+                    <div class="col-md-3">
+                        <label>Location lat</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control w-100">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mt-2">
+                    <div class="col-md-3">
+                        <label>Location lang</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3647.143334845313!2d90.56307351501428!3d23.919977988193782!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755cd09b2dc63b9%3A0xfdc8587b989ec197!2sBank%20Asia%20Agent%20Banking!5e0!3m2!1sen!2sbd!4v1628406450842!5m2!1sen!2sbd"
+                    width="100%" height="350" style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy">
+            </iframe>
+
+        </div>
+
+        <!--Save Button-->
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+

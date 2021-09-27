@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 
 @Data
@@ -32,5 +33,16 @@ public class Client {
 	@Column
 	private String email;
 
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.DETACH, CascadeType.REFRESH})
+	private List<Duty> dutyList;
 
+	public Client() {
+	}
+
+	@Override
+	public String toString() {
+		return " " + contactPerson + ' ';
+	}
 }
+

@@ -1,107 +1,145 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="AllFragments/base-fragment::layout(~{::section})">
-
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Form</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome stylesheet-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+
+    <!-- bootstrap data table-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title th:text="${title}"></title>
 </head>
 
 <body>
 
+<!-- =============================== Navbar start ================================================-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Client Manager</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+
+            <ul class="navbar-nav text-uppercase">
+
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#" th:href="@{/}">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Login</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Signup</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <!--  ==========================================================  Body Start ========================================================================================-->
-<section>
-    <div class="container ">
-        <div class="row">
-            <div class="col-md-8 offset-md-2 ">
-                <div class="my-card mt-4 mb-4">
-                    <h1>Client Create</h1>
 
-                    <form class="border bg-light p-5" action="#" th:action="@{/client/save-client}"
-                          th:object="${client}" method="POST">
+<div class="container mt-5">
 
-                        <input type="hidden" th:field="*{id}"/>
+    <form class="form p-5 border" action="#" th:action="@{/client/save-client}"
+          th:object="${client}" method="POST">
 
-                        <!-- Field of Company Name -->
-                        <div class="mb-3">
-                            <label for="companyName" class="form-label">Company Name</label>
-                            <input th:value="${client.companyName}"
-                                   name="companyName"
-                                   type="text"
-                                   class="form-control"
-                                   placeholder="Enter Here"
-                                   id="companyName"
-                                   required
-                                   th:classappend="${#fields.hasErrors('companyName') ? 'is-invalid' : ''}">
-                            <div class="invalid-feedback"
-                                 th:each="e : ${#fields.errors('companyName')}"
-                                 th:text="${e}">
-                            </div>
-                        </div>
+        <h1 class="text-center">Client Create</h1>
 
-                        <!-- Field of Contact Person -->
-                        <div class="mb-3">
-                            <label for="contactPerson" class="form-label">Contact Person</label>
-                            <input th:value="${client.contactPerson}"
-                                   name="contactPerson"
-                                   type="text"
-                                   class="form-control"
-                                   placeholder="Enter Here"
-                                   id="contactPerson"
-                                   required
-                                   th:classappend="${#fields.hasErrors('contactPerson') ? 'is-invalid' : ''}">
-                            <div class="invalid-feedback"
-                                 th:each="e : ${#fields.errors('contactPerson')}"
-                                 th:text="${e}">
-                            </div>
-                        </div>
+        <input type="hidden" th:field="*{id}"/>
 
 
-                        <!-- Field of Contact Number -->
-                        <div class="mb-3">
-                            <label for="contactNumber" class="form-label">Contact Number</label>
-                            <input th:value="${client.contactNumber}"
-                                   name="contactNumber"
-                                   type="text"
-                                   class="form-control"
-                                   placeholder="Enter Here"
-                                   id="contactNumber"
-                                   required
-                                   th:classappend="${#fields.hasErrors('contactNumber') ? 'is-invalid' : ''}">
-                            <div class="invalid-feedback"
-                                 th:each="e : ${#fields.errors('contactNumber')}"
-                                 th:text="${e}">
-                            </div>
-                        </div>
-
-
-                        <!-- Field of email -->
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input th:value="${client.email}"
-                                   name="email"
-                                   type="email"
-                                   class="form-control"
-                                   placeholder="Enter Here"
-                                   id="email"
-                                   required
-                                   th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}">
-                            <div class="invalid-feedback"
-                                 th:each="e : ${#fields.errors('email')}"
-                                 th:text="${e}">
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-info"> Save Client</button>
-
-                    </form>
-
-                    <a th:href="@{/}"> Back to Client List</a>
+        <!-- Field of Company Name -->
+        <div class="row m-3">
+            <div class="col-md-2">
+                <label>Company Name</label>
+            </div>
+            <div class="col-md-6 ">
+                <input type="text" class="form-control w-50" placeholder="Company Name"
+                       th:value="${client.companyName}" name="companyName" required
+                       th:classappend="${#fields.hasErrors('companyName') ? 'is-invalid' : ''}">
+                <div class="invalid-feedback"
+                     th:each="e : ${#fields.errors('companyName')}"
+                     th:text="${e}">
                 </div>
             </div>
         </div>
-    </div>
-</section>
 
+
+        <!-- Field of Contact Person -->
+        <div class="row m-3">
+            <div class="col-md-2">
+                <label>Contact Person</label>
+            </div>
+            <div class="col-md-6 ">
+                <input type="text" class="form-control w-50" placeholder="Contact Person"
+                       th:value="${client.contactPerson}" name="contactPerson" required
+                       th:classappend="${#fields.hasErrors('contactPerson') ? 'is-invalid' : ''}">
+                <div class="invalid-feedback"
+                     th:each="e : ${#fields.errors('contactPerson')}"
+                     th:text="${e}">
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Field of Contact Number -->
+        <div class="row m-3">
+            <div class="col-md-2">
+                <label>Contact Number</label>
+            </div>
+            <div class="col-md-6 ">
+                <input type="text" class="form-control w-50" placeholder="Contact Number"
+                       th:value="${client.contactNumber}" name="contactNumber" required
+                       th:classappend="${#fields.hasErrors('contactNumber') ? 'is-invalid' : ''}">
+                <div class="invalid-feedback"
+                     th:each="e : ${#fields.errors('contactNumber')}"
+                     th:text="${e}">
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Field of email -->
+        <div class="row m-3">
+            <div class="col-md-2">
+                <label>Email</label>
+            </div>
+            <div class="col-md-6 ">
+                <input type="text" class="form-control w-50" placeholder="Contact Number"
+                       th:value="${client.email}" name="email" required
+                       th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}">
+                <div class="invalid-feedback"
+                     th:each="e : ${#fields.errors('email')}"
+                     th:text="${e}">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+
+    </form>
+</div>
 
 </body>
 </html>

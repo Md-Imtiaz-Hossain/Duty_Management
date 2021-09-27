@@ -7,6 +7,7 @@ import com.example.pack.model.Employee;
 import com.example.pack.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -31,12 +32,17 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+
+
     // display list of employees
     @GetMapping("/home")
     public String employeeList(Model model) {
         List<Employee> listEmployees = employeeService.getAllEmployees();
         model.addAttribute("listEmployees", listEmployees);
-        model.addAttribute("title", "Home - Employee Management");
+        model.addAttribute("title", "Employee - Employee List");
         return "/employee/index";
     }
 
@@ -45,7 +51,7 @@ public class EmployeeController {
     @GetMapping("/show-new-employee-form")
     public String showNewEmployeeForm(Model model) {
         Employee employee = new Employee();
-        model.addAttribute("title", "Create - Employee Create Form");
+        model.addAttribute("title", "Employee - Employee Create Form");
         model.addAttribute("employee", employee);
         model.addAttribute("designationType", Designation.values());
         return "/employee/new-employee";
@@ -66,6 +72,7 @@ public class EmployeeController {
 
             if (file.isEmpty()) {
                 System.out.println("Profile Image is Empty ! ");
+                employee.setPassword(passwordEncoder.encode(employee.getPassword()));
                 employeeService.saveEmployee(employee);
             } else {
                 employee.setPhoto(file.getOriginalFilename());
@@ -73,6 +80,7 @@ public class EmployeeController {
                 Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
                 Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
                 System.out.println("Profile Image is Uploaded.");
+                employee.setPassword(passwordEncoder.encode(employee.getPassword()));
                 employeeService.saveEmployee(employee);
             }
         }
@@ -88,7 +96,7 @@ public class EmployeeController {
         Employee employee = null;
         if (optional.isPresent()) {
             employee = optional.get();
-            model.addAttribute("title", "Update - Employee Update Form");
+            model.addAttribute("title", "Employee - Employee Update Form");
             model.addAttribute("designationType", Designation.values());
             model.addAttribute("employee", employee);
             return "/employee/new-employee";

@@ -8,20 +8,20 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionHandlers {
 
     @ExceptionHandler(Exception.class)
-    public String error2(Model model){
+    public String Exception(Model model){
         model.addAttribute("message", "Exception Occur !!! Try Again Some time After");
         return "error";
     }
 
     @ExceptionHandler(NullPointerException.class)
-    public String error(Model model){
+    public String NullPointerException(Model model){
         model.addAttribute("message", "NullPointerException Occur !!! Try Again Some time After");
         return "error";
     }
 
 
     @ExceptionHandler(EmployeeIdNotFoundException.class)
-    public String NoBookFoundException(Model model){
+    public String EmployeeIdNotFoundException(Model model){
         model.addAttribute("message", "EmployeeIdNotFoundException Occur !!! Try Again Some time After");
         return "error";
     }
