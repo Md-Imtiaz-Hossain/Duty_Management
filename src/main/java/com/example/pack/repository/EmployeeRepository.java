@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
-    @Query("select u from Employee u where u.email = ?1")
-    Employee findByEmail(String email);
+    @Query("select u from Employee u where u.userName = ?1")
+    Employee findByUserName(String userName);
 
 }

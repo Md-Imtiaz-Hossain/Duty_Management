@@ -26,15 +26,19 @@ public class DutyLogService {
     @Autowired
     private DutyLogRepository dutyLogRepository;
 
+    private DutyLog dutyLog;
 
-    public List<DutyLog> getAllDuty() {
+
+
+    public List<DutyLog> getAllDutyLog() {
         return dutyLogRepository.findAll();
     }
 
 
-    public void saveDuty(DutyLog dutyLog) {
+    public void saveDutyLog(DutyLog dutyLog) {
         dutyLogRepository.save(dutyLog);
     }
+
 
 
 }

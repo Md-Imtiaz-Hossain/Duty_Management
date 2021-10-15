@@ -28,13 +28,19 @@ import java.util.Optional;
 @RequestMapping("/employee")
 public class EmployeeController {
 
+//    {
+//        "username":"Imtiaz_Hossain",
+//            "password":"01960153660"
+//
+//    }
 
-    @Autowired
-    private EmployeeService employeeService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+
+    @Autowired
+    private EmployeeService employeeService;
 
 
     // display list of employees
